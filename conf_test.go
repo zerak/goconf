@@ -164,7 +164,7 @@ func TestSection(t *testing.T) {
 	}
 	// test unmarshall
 	tf := &TestConfig{}
-	if err := conf.Unmarshal(tf); err != nil {
+	if err := conf.Unmarshal(tf, "goconf"); err != nil {
 		t.Errorf("c.Unmarshal() failed (%s)", err.Error())
 		t.FailNow()
 	}

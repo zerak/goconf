@@ -510,7 +510,7 @@ func (e *InvalidUnmarshalError) Error() string {
 //   // Note the extra tag "memory" only effect the int (memory size is int).
 //   Field int `goconf:"base:myName:memory"`
 //
-func (c *Config) Unmarshal(v interface{}) error {
+func (c *Config) Unmarshal(v interface{}, flag string) error {
 	vv := reflect.ValueOf(v)
 	if vv.Kind() != reflect.Ptr || vv.IsNil() {
 		return &InvalidUnmarshalError{reflect.TypeOf(v)}
@@ -522,7 +522,7 @@ func (c *Config) Unmarshal(v interface{}) error {
 	for i := 0; i < n; i++ {
 		vf := rv.Field(i)
 		tf := rt.Field(i)
-		tag := tf.Tag.Get("goconf")
+		tag := tf.Tag.Get(flag)
 		// if tag empty or "-" ignore
 		if tag == "-" || tag == "" || tag == "omitempty" {
 			continue
